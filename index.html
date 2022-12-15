@@ -443,7 +443,7 @@
   }
   function onEmailSubmit() {
     if (validateEmail(emailInput.value)) {
-      const dataTime = new Date().toLocaleString();
+      const dataTime = new Date();
       const dataEmail = emailInput.value;
       const url = 'https://script.google.com/macros/s/AKfycbyd7F73WLI81g3ToC7eRxfxaChTnW6nRJlmJi9vXerETP5dXEUuQnVHyE2y4tGEi7nl/exec';
       const getUrl = `?time=${dataTime}&data=${dataEmail}`;
