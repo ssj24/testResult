@@ -5,16 +5,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:type" content="website"><!-- "og:type" can be omitted for 'website' (is default), required for other types: http://ogp.me/#types -->
-  <meta property="og:title" content="...">
-  <meta property="og:description" content="...">
-  <meta property="og:url" content="https://example.com">
+  <meta property="og:title" content="SeamSpace-나의 타고난 기질은?">
+  <meta property="og:description" content="seam space에서 준비한 기질 검사입니다.">
+  <meta property="og:url" content="https://ssj24.github.io/testResult/">
   <meta property="og:site_name" content="Seam Space">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:image" content="https://example.com/path/to/image.png">
+  <meta property="og:image" content="https://user-images.githubusercontent.com/52478972/207990200-7e933d9f-e8a3-4863-9441-9d58556f088a.png">
   <meta property="og:image:type" content="image/png">
-  <meta property="og:image:alt" content="...">
-  <meta property="og:image:width" content="...">
-  <meta property="og:image:height" content="...">
+  <meta property="og:image:alt" content="seam space - 나의 타고난 기질은?">
+  <meta property="og:image:width" content="200px">
+  <meta property="og:image:height" content="200px">
   <link href="./style.css" rel="stylesheet" type="text/css" />
   <title>SeamSpace-나의 타고난 기질은?</title>
   <link rel="icon" type="image/svg" href="./logo.svg" />
@@ -505,7 +505,9 @@
     targetId = Object.keys(valKeys)[0] + Object.keys(valKeys)[1];
     setData(targetId);
     // after parsing params, disable loading block
-    document.getElementById('loading').style.display = 'none';
+    setTimeout(() => {
+      document.getElementById('loading').style.display = 'none';
+    }, 500);
   }
   // if there's param, parse it
   if (window.location.search.length > 0) {
