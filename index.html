@@ -345,8 +345,9 @@
       img: 'https://user-images.githubusercontent.com/52478972/206640407-2a2ed584-9d6c-484c-ada4-1ce84a49b504.png'
     },
   ]
-  let vals = ['대중', '역동', '평온', '완벽']
-  let valKeys = {S: 0, C: 0, P: 0, M: 0};
+  let valsKo = {s: '대중', c: '역동', p: '평온', m: '완벽'}
+  let vals = ['s', 'c', 'p', 'm']
+  let valKeys = {};
   let targetId = '';
   let target;
   let isOpen = false;
@@ -381,7 +382,7 @@
       val.textContent = valKeys[vals[i]];
     })
     thList.forEach((val, i) => {
-      val.textContent = vals[i];
+      val.textContent = valsKo[vals[i]];
       val.style.borderBottom = `5px double ${target.color}`;
     });
     dataContainer.innerHTML = target.main;
@@ -407,7 +408,7 @@
     window.open("https://twitter.com/intent/tweet?text=" + pageTitle + "&url=" + encodeURIComponent(href));
   }
   function onClickBand() {
-    var url = "https://band.us/plugin/share?body=" + pageTitle + ' ' + encodeURIComponent(href) + "&route="+encodeURIComponent(href);
+    const url = "https://band.us/plugin/share?body=" + pageTitle + ' ' + encodeURIComponent(href) + "&route="+encodeURIComponent(href);
     window.open(url, "shareBand", "width=400, height=500, resizable=yes");
   }
   function shareClipboard() {
@@ -437,11 +438,93 @@
     isOpen = !isOpen;
   }
   function validateEmail(email) {
-    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    const re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return re.test(email);
+  }
+  function initClient() {
+    const clientId = '25145905608-vv83nk012f18ksnde3g1oe17ba2r9i15.apps.googleusercontent.com';
+    const key = 'AIzaSyCzckRYMR7LuuiVrt7JKfUGubpbBwzAeus';
+    const scope = 'https://sheets.googleapis.com/auth/spreadsheets/';
+    gapi.client.init({
+      'apiKey': key,
+      'clientId': clientId,
+      'scope': scope,
+      'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+    })
   }
   function onEmailSubmit() {
     if (validateEmail(emailInput.value)) {
+      gapi.load('client:auth2', initClient);
+      const sheetId = '1O1zd3ZXY_nA6r-sR6cVzmGlHAFAsuohjf3A4xVzgudA';
+      // let url = `https://sheets.googleapis.com/v4/spreadsheets/spreadsheetId/values/Sheet1!A1:E1:append?valueInputOption=USER_ENTERED`;
+
+        let values = [
+          [
+            new Date().getTime(), emailInput.value,
+          ],
+        ];
+        const body = {
+          values: values,
+        };
+        try {
+          console.log(gapi);
+          gapi.client.sheets.spreadsheets.values.append({
+            spreadsheetId: sheetId,
+            range: 'Sheet1!A1:B1',
+            valueInputOption: 'RAW',
+            resource: body,
+          }).then((response) => {
+            const result = response.result;
+            console.log(`${result.updates.updatedCells} cells appended.`);
+            if (callback) callback(response);
+          });
+        } catch (err) {
+          console.log(err.message);
+          return;
+        }
+
+
+      // const params = {
+      //   spreadsheetId: sheetId,
+      //   range: 'Sheet1!A1:B1',
+      //   valueInputOption: 'RAW',
+      //   insertDataOption: 'INSERT_ROWS'
+      // }
+      // const valueRangeBody = {
+      //   'majorDimension': 'ROWS',
+      //   'values': [emailInput.value]
+      // };
+      // let request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
+      // request.then(function(response) {
+      //   console.log(response.result);
+      // }, function(reason) {
+      //   console.error('error: ', reason.result.error.message);
+      // })
+
+
+        //요청을 보낼 방식, url, 비동기여부 설정
+        // const url  = 'https://script.google.com/macros/s/AKfycbymgwlkctAXdOCrYSowmDl0QTUC-shxvmXzXJIIOF8seCtote4PfstmY3HWrotpzBeR/exec';
+        // const xhr = new XMLHttpRequest();
+        // xhr.open('GET', url);
+        
+        // //HTTP 요청 헤더 설정
+        // xhr.setRequestHeader('Content-type', 'application/json');
+        
+        // const reqJSON = new Object();
+        // reqJSON.time = new Date().getTime();
+        // reqJSON.email = emailInput.value;
+        // //요청 전송
+        // xhr.send(JSON.stringify(reqJSON));
+
+        // //Callback
+        // xhr.onload = function () {
+        //     if (xhr.status == 200) {
+        //         //success 
+        //         console.log(xhr.response);
+        //     } else {
+        //         //failed
+        //     }
+        // }
       setTimeout(() => {
         setMates(target, true);
         dataContainer.innerHTML += target.sub;
@@ -454,6 +537,7 @@
       emailInput.focus();
     }
   }
+  
   modalContainer.addEventListener('click', (e) => {
     if (!e.target.closest('#modal')) {
       displayModal();
@@ -467,9 +551,9 @@
     await window.location.search.split('?')[1].split('&').map(queryParam => {
       [key, value] = queryParam.split('=')
       if (key === 'val') {
+        value = value.match(/.{1,2}/g);
         for (let i=0; i<4; i++) {
-          // each number of val is score.
-          valKeys[vals[i]] = value[i*2];
+          valKeys[vals[i]] = value[i];
         }
         // sort in descending order
         valKeys = Object.fromEntries(
@@ -477,20 +561,22 @@
         );
         // change vals's order too(for displaying at func.setData)
         vals = Object.keys(valKeys);
-      } else {
-        queryParams[key] = value;
-      }
+      } 
     })
+    targetId = Object.keys(valKeys)[0] + Object.keys(valKeys)[1];
+    setData(targetId);
     // after parsing params, disable loading block
     document.getElementById('loading').style.display = 'none';
-    targetId = queryParams['id'];
-    setData(targetId);
   }
   // if there's param, parse it
   if (window.location.search.length > 0) {
     getParam();
+  } else {
+    window.location.search = `?val=01020304`;
   }
-  // http://127.0.0.1:5501/testResult.html?id=pm&val=7040901
-</script>
 
+  // http://127.0.0.1:5501/testResult.html?val=07040901
+</script>
+<script async defer src="https://apis.google.com/js/api.js">
+</script>
 </html>
