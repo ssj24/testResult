@@ -502,11 +502,13 @@
       // })
 
         // 요청을 보낼 방식, url, 비동기여부 설정
-        const url  = 'https://script.google.com/macros/s/AKfycbymgwlkctAXdOCrYSowmDl0QTUC-shxvmXzXJIIOF8seCtote4PfstmY3HWrotpzBeR/exec';
-        const reqJSON = new Object();
-        reqJSON.time = new Date().getTime();
-        reqJSON.email = emailInput.value;
-        console.log(reqJSON);
+        const dataTime = new Date().getTime();
+        const dataEmail = emailInput.value;
+        const url  = `https://script.google.com/macros/s/AKfycbymgwlkctAXdOCrYSowmDl0QTUC-shxvmXzXJIIOF8seCtote4PfstmY3HWrotpzBeR/exec?time=${dataTime}&data=${dataEmail}`;
+        // const reqJSON = new Object();
+        // reqJSON.time = new Date().getTime();
+        // reqJSON.email = emailInput.value;
+        // console.log(reqJSON);
         // fetch(url, { method: "POST", mode: 'no-cors', body: reqJSON })
         // .then((res) => {
         //   console.log(res);
@@ -514,13 +516,13 @@
         // })
         // .then((res) => console.log(res));
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', url);
+        xhr.open('GET', url);
         //HTTP 요청 헤더 설정
-        xhr.setRequestHeader('Content-type', 'text/plain;charset=utf-8');
+        xhr.setRequestHeader('Content-type', 'application/json;charset=utf-8');
         
 
         //요청 전송
-        xhr.send(JSON.stringify(reqJSON));
+        xhr.send();
 
         // //Callback
         xhr.onload = function () {
