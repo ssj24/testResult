@@ -171,9 +171,9 @@ button {
 }
 button:hover {
   cursor: pointer;
-  transform: scale(1.02);
+  /* transform: scale(1.02); */
   /* background-color: white; */
-  backdrop-filter: brightness(1.1);
+  /* backdrop-filter: brightness(1.1); */
   font-weight: 900;
 }
 .mateContainer {

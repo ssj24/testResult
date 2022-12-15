@@ -15,7 +15,7 @@
   <meta property="og:image:alt" content="...">
   <meta property="og:image:width" content="...">
   <meta property="og:image:height" content="...">
-  <link href="./testResult.css" rel="stylesheet" type="text/css" />
+  <link href="./style.css" rel="stylesheet" type="text/css" />
   <title>SeamSpace-나의 타고난 기질은?</title>
   <link rel="icon" type="image/svg" href="./logo.svg" />
   <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
@@ -390,6 +390,14 @@
     buttons.forEach(x => {
       x.style.border = `2px solid ${target.color}`;
       x.style.color = target.color;
+      x.addEventListener('mouseenter', () => {
+        x.style.color = 'white';
+        x.style.backgroundColor = target.color;
+      })
+      x.addEventListener('mouseleave', () => {
+        x.style.color = target.color;
+        x.style.backgroundColor = 'transparent';
+      })
     })
     nameContainer.textContent = target.name;
     setMates(target, false);
