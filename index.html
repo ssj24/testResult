@@ -507,30 +507,31 @@
         reqJSON.time = new Date().getTime();
         reqJSON.email = emailInput.value;
         console.log(reqJSON);
-        fetch(url, { method: "POST", mode: 'no-cors', body: reqJSON })
-        .then((res) => {
-          console.log(res);
-          return res.text();
-        })
-        .then((res) => console.log(res));
-        // const xhr = new XMLHttpRequest();
-        // xhr.open('POST', url);
-        // //HTTP 요청 헤더 설정
-        // xhr.setRequestHeader('Content-type', 'text/plain;charset=utf-8');
+        // fetch(url, { method: "POST", mode: 'no-cors', body: reqJSON })
+        // .then((res) => {
+        //   console.log(res);
+        //   return res.text();
+        // })
+        // .then((res) => console.log(res));
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        //HTTP 요청 헤더 설정
+        xhr.setRequestHeader('Content-type', 'text/plain;charset=utf-8');
         
 
-        // //요청 전송
-        // xhr.send(JSON.stringify(reqJSON));
+        //요청 전송
+        xhr.send(JSON.stringify(reqJSON));
 
         // //Callback
-        // xhr.onload = function () {
-        //     if (xhr.status == 200) {
-        //         //success 
-        //         console.log(xhr.response);
-        //     } else {
-        //         //failed
-        //     }
-        // }
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                //success 
+                console.log(xhr.response);
+            } else {
+                //failed
+                console.log(xhr.response);
+            }
+        }
       setTimeout(() => {
         setMates(target, true);
         dataContainer.innerHTML += target.sub;
