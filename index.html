@@ -376,6 +376,9 @@
     title.firstElementChild.textContent = target.desc + ' ' + target.name;
     mainImg.src = `./${target.id}.svg`;
     mainImg.alt = target.desc + target.name;
+    mainImg.onload = () => {
+      document.getElementById('loading').style.display = 'none';
+    }
     keywordsContainer.innerHTML = target.keywords.map(x => `<span>#${x}</span>`).join(' ');
     valList.forEach((val, i) => {
       val.classList.add(vals[i]);
@@ -506,9 +509,9 @@
     targetId = Object.keys(valKeys)[0] + Object.keys(valKeys)[1];
     setData(targetId);
     // after parsing params, disable loading block
-    setTimeout(() => {
-      document.getElementById('loading').style.display = 'none';
-    }, 500);
+    // setTimeout(() => {
+    //   document.getElementById('loading').style.display = 'none';
+    // }, 500);
   }
   // if there's param, parse it
   if (window.location.search.length > 0) {
