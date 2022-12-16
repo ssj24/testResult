@@ -26,7 +26,9 @@
 
 </head>
 <body>
-  <div id="loading"></div>
+  <div id="loading">
+    <p>Seam Space</p>
+  </div>
   <div id="container" class="fancy-border">
     <header>
       <svg width="100%" height="100%" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
@@ -493,7 +495,7 @@
   async function getParam() { // parse param's search
     await window.location.search.split('?')[1].split('&').map(queryParam => {
       [key, value] = queryParam.split('=')
-      if (key === 'val') {
+      if (key === 'id') {
         value = value.match(/.{1,2}/g);
         for (let i=0; i<4; i++) {
           valKeys[vals[i]] = value[i];
@@ -508,16 +510,12 @@
     })
     targetId = Object.keys(valKeys)[0] + Object.keys(valKeys)[1];
     setData(targetId);
-    // after parsing params, disable loading block
-    // setTimeout(() => {
-    //   document.getElementById('loading').style.display = 'none';
-    // }, 500);
   }
   // if there's param, parse it
   if (window.location.search.length > 0) {
     getParam();
   } else {
-    // window.location.search = `?val=01020304`;
+    // window.location.search = `?id=01020304`;
   }
 
   // http://127.0.0.1:5501/testResult.html?val=07040901
