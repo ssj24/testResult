@@ -5,17 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:type" content="website"><!-- "og:type" can be omitted for 'website' (is default), required for other types: http://ogp.me/#types -->
-  <meta property="og:title" content="...">
-  <meta property="og:description" content="...">
-  <meta property="og:url" content="https://example.com">
+  <meta property="og:title" content="SeamSpace-나의 타고난 기질은?">
+  <meta property="og:description" content="seam space에서 준비한 기질 검사입니다.">
+  <meta property="og:url" content="https://ssj24.github.io/testResult/">
   <meta property="og:site_name" content="Seam Space">
   <meta property="og:locale" content="ko_KR">
-  <meta property="og:image" content="https://example.com/path/to/image.png">
+  <meta property="og:image" content="https://user-images.githubusercontent.com/52478972/207990200-7e933d9f-e8a3-4863-9441-9d58556f088a.png">
   <meta property="og:image:type" content="image/png">
-  <meta property="og:image:alt" content="...">
-  <meta property="og:image:width" content="...">
-  <meta property="og:image:height" content="...">
-  <link href="./testResult.css" rel="stylesheet" type="text/css" />
+  <meta property="og:image:alt" content="seam space - 나의 타고난 기질은?">
+  <meta property="og:image:width" content="200px">
+  <meta property="og:image:height" content="200px">
+  <link href="./style.css" rel="stylesheet" type="text/css" />
   <title>SeamSpace-나의 타고난 기질은?</title>
   <link rel="icon" type="image/svg" href="./logo.svg" />
   <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.1/kakao.min.js"
@@ -114,7 +114,7 @@
     <div class="overlay">
       <div id="modal">
         <div class="header">
-          <h1>이메일 주소를 적어주시면....</h1>
+          <h1>이메일 주소를 적어주시면</h1>
           <img src="./hearts.svg" alt="심스페이스 로고 활용 이미지" />
         </div>
         <p>
@@ -390,6 +390,14 @@
     buttons.forEach(x => {
       x.style.border = `2px solid ${target.color}`;
       x.style.color = target.color;
+      x.addEventListener('mouseenter', () => {
+        x.style.color = 'white';
+        x.style.backgroundColor = target.color;
+      })
+      x.addEventListener('mouseleave', () => {
+        x.style.color = target.color;
+        x.style.backgroundColor = 'transparent';
+      })
     })
     nameContainer.textContent = target.name;
     setMates(target, false);
@@ -497,13 +505,15 @@
     targetId = Object.keys(valKeys)[0] + Object.keys(valKeys)[1];
     setData(targetId);
     // after parsing params, disable loading block
-    document.getElementById('loading').style.display = 'none';
+    setTimeout(() => {
+      document.getElementById('loading').style.display = 'none';
+    }, 500);
   }
   // if there's param, parse it
   if (window.location.search.length > 0) {
     getParam();
   } else {
-    window.location.search = `?val=01020304`;
+    // window.location.search = `?val=01020304`;
   }
 
   // http://127.0.0.1:5501/testResult.html?val=07040901
