@@ -49,7 +49,7 @@
       <h1></h1>
       <img src="" alt="" id="mainImg">
       <h2 id="keywords"></h2>
-      <table class="valContainer">
+      <!-- <table class="valContainer">
         <tbody>
           <tr class="thead">
             <th></th>
@@ -64,7 +64,7 @@
             <td class="val"></td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </header>
     <main>
       <p id="data"></p>
@@ -523,21 +523,8 @@
 
   async function getParam() { // parse param's search
     await window.location.search.split('?')[1].split('&').map(queryParam => {
-      [key, value] = queryParam.split('=')
-      if (key === 'id') {
-        value = value.match(/.{1,2}/g);
-        for (let i=0; i<4; i++) {
-          valKeys[vals[i]] = value[i];
-        }
-        // sort in descending order
-        valKeys = Object.fromEntries(
-            Object.entries(valKeys).sort(([,a],[,b]) => b-a)
-        );
-        // change vals's order too(for displaying at func.setData)
-        vals = Object.keys(valKeys);
-      } 
+      targetId = queryParam;
     })
-    targetId = Object.keys(valKeys)[0] + Object.keys(valKeys)[1];
     setData(targetId);
   }
   // if there's param, parse it
