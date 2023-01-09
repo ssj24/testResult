@@ -49,7 +49,7 @@
       <h1></h1>
       <img src="" alt="" id="mainImg">
       <h2 id="keywords"></h2>
-      <table class="valContainer">
+      <!-- <table class="valContainer">
         <tbody>
           <tr class="thead">
             <th></th>
@@ -64,7 +64,7 @@
             <td class="val"></td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </header>
     <main>
       <p id="data"></p>
@@ -100,7 +100,7 @@
       <button id="secBtn" onclick="displayModal()">더 보기</button>
     </main>
     <div id="shareContainer">
-      <a id="kakaotalk-sharing-btn" href="javascript:;">
+      <a id="kakaotalk-sharing-btn" href="javascript:;" onclick="kakaoShare()">
         <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
           alt="카카오톡 공유 보내기 버튼"/>
       </a>
@@ -424,12 +424,26 @@
     },
   });
   }
+  function kakaoShare() {
+    gtag('event', 'share_kakao', {
+        'app_name': 'ss-test',
+        'screen_name': 'testResult'
+      });
+  }
   function onClickTwitter() {
     window.open("https://twitter.com/intent/tweet?text=" + pageTitle + "&url=" + encodeURIComponent(href));
+    gtag('event', 'share_tweet', {
+        'app_name': 'ss-test',
+        'screen_name': 'testResult'
+      });
   }
   function onClickBand() {
     const url = "https://band.us/plugin/share?body=" + pageTitle + ' ' + encodeURIComponent(href) + "&route="+encodeURIComponent(href);
     window.open(url, "shareBand", "width=400, height=500, resizable=yes");
+    gtag('event', 'share_band', {
+        'app_name': 'ss-test',
+        'screen_name': 'testResult'
+      });
   }
   function shareClipboard() {
     const textarea = document.createElement('textarea');
@@ -447,6 +461,10 @@
       shareAlert.classList.remove('dFlex');
       shareAlert.classList.add('dNone');
     }, 1000);
+    gtag('event', 'share_clipboard', {
+        'app_name': 'ss-test',
+        'screen_name': 'testResult'
+      });
     }
   function displayModal(){
     modalContainer.classList.toggle('dNone');
@@ -484,6 +502,10 @@
       document.getElementById('secBtn').style.display = 'none';
       document.querySelector('.blind').style.display = 'none';
       displayModal();
+      gtag('event', 'email_submit', {
+        'app_name': 'ss-test',
+        'screen_name': 'testResult'
+      });
     } else {
       errTxt.classList.remove('dNone');
       emailInput.focus();
@@ -501,21 +523,8 @@
 
   async function getParam() { // parse param's search
     await window.location.search.split('?')[1].split('&').map(queryParam => {
-      [key, value] = queryParam.split('=')
-      if (key === 'id') {
-        value = value.match(/.{1,2}/g);
-        for (let i=0; i<4; i++) {
-          valKeys[vals[i]] = value[i];
-        }
-        // sort in descending order
-        valKeys = Object.fromEntries(
-            Object.entries(valKeys).sort(([,a],[,b]) => b-a)
-        );
-        // change vals's order too(for displaying at func.setData)
-        vals = Object.keys(valKeys);
-      } 
+      targetId = queryParam;
     })
-    targetId = Object.keys(valKeys)[0] + Object.keys(valKeys)[1];
     setData(targetId);
   }
   // if there's param, parse it
