@@ -60,7 +60,7 @@
     <header>
       <svg width="100%" height="100%" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
         <path id="curve" width="100" height="100" fill="none" d="M10,50 Q50, 0 90, 50" />
-        <text lengthAdjust="spacingAndGlyphs" textLength="90" font-size="15">
+        <text lengthAdjust="spacingAndGlyphs" textLength="90" font-size="11">
           <textPath href="#curve" id="title" method="align" spacing="auto" startOffset="5%" >
             <tspan dy="-5"></tspan>
           </textPath>
@@ -202,7 +202,7 @@
     {
       id: 'cp',
       name: '고양이',
-      desc: '차분한 전략가',
+      desc: '조용한 전략가',
     },
     {
       id: 'cm',
@@ -343,7 +343,7 @@
     {
       id: 'mp',
       name: '사슴',
-      desc: '신중한 전문가',
+      desc: '신중한 완벽주의자',
       color: '#005050',
       keywords: ['완벽주의', '신중함', '이타적'],
       main: '당신의 주기질은 완벽(M), 부기질은 평온(P)입니다. 이 기질은 모든 유형 중에서 가장 내향적이며 <span class="accent">선하고 이타적인 마음</span>을 가진 유형입니다. 집중력을 가지고<span class="blind">...<span><button onclick="displayModal()">더 보기</button>',
@@ -402,7 +402,7 @@
     body.style.backgroundImage = `url('./${target.id.slice(0, 1)}-back.svg')`;
     body.style.color = target.color;
     title.setAttribute('fill', target.color);
-    title.firstElementChild.textContent = target.desc + ' ' + target.name;
+    title.firstElementChild.textContent = `${target.desc} ${target.name}`;
     mainImg.src = `./${target.id}.svg`;
     mainImg.alt = target.desc + target.name;
     mainImg.onload = () => {
