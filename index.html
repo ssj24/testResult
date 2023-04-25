@@ -403,7 +403,10 @@
     body.style.color = target.color;
     title.setAttribute('fill', target.color);
     title.firstElementChild.textContent = `${target.desc} ${target.name}`;
-    if (id in ['cm', 'pm', 'ps', 'mp']) document.querySelector('.svg').children[1].setAttribute('font-size', 8);
+    if (['cm', 'pm', 'ps', 'mp'].includes(id)) {
+      console.log(id);
+      document.querySelector('.svg').children[1].setAttribute('font-size', 8);
+    }
     mainImg.src = `./${target.id}.svg`;
     mainImg.alt = target.desc + target.name;
     mainImg.onload = () => {
