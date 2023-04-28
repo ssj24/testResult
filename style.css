@@ -160,20 +160,24 @@ button {
   width: 80%;
   display: block;
   margin: 5px auto;
-  background: transparent;
   padding: 10px 10px;
   border-radius: 25px;
   font-family: 'NeoDunggeunmo';
   font-weight: 900;
   font-size: 17px;
+  color: white;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
 }
 button:hover {
   cursor: pointer;
   /* transform: scale(1.02); */
   /* background-color: white; */
   /* backdrop-filter: brightness(1.1); */
+  background: transparent;
   font-weight: 900;
+  box-shadow: none;
 }
+
 .mateContainer {
   display: flex;
   flex-direction: column;
@@ -316,6 +320,7 @@ input:focus {
     background-size: 120px;
   }
 }
+
 
 /* share */
 #shareContainer {

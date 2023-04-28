@@ -119,6 +119,7 @@
       </div>
       <button id="secBtn" onclick="displayModal()">더 보기</button>
     </main>
+
     <div id="shareContainer">
       <a id="kakaotalk-sharing-btn" href="javascript:;" onclick="kakaoShare()">
         <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
@@ -137,6 +138,9 @@
       </div>
       <div class="shareAlert dNone">복사되었습니다.</div>
     </div>
+    <button id="toTest" onclick="location.href='https://answer.moaform.com/answers/M0Ayje'" >
+      검사하러 가기
+    </button>
   </div>
 
   <div id="modalContainer" class="dNone">
@@ -426,14 +430,14 @@
     const buttons = document.querySelectorAll('button');
     buttons.forEach(x => {
       x.style.border = `2px solid ${target.color}`;
-      x.style.color = target.color;
+      x.style.backgroundColor = target.color;
       x.addEventListener('mouseenter', () => {
-        x.style.color = 'white';
-        x.style.backgroundColor = target.color;
+        x.style.backgroundColor = 'transparent';
+        x.style.color = target.color;
       })
       x.addEventListener('mouseleave', () => {
-        x.style.color = target.color;
-        x.style.backgroundColor = 'transparent';
+        x.style.color = 'white';
+        x.style.backgroundColor = target.color;
       })
     })
     nameContainer.textContent = target.name;
